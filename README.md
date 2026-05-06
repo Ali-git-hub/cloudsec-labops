@@ -287,3 +287,20 @@ dashboard/lab10-executive-security-dashboard/output/executive-summary.md
 
 Expected result: a browser-ready HTML dashboard and executive summary.
 
+## Screenshots
+
+### Homepage
+![Homepage 1](screenshots/homepage.png)
+![Homepage 2](screenshots/homepagee.png)
+![Homepage 3](screenshots/homepageee.png)
+![Homepage 4](screenshots/homepageeee.png)
+
+### Executive Dashboard
+![Executive Dashboard 1](screenshots/dashboard.png)
+![Executive Dashboard 2](screenshots/dashboardd.png)
+
+### Attack Path Report
+![Attack Path Report](screenshots/attack-path-report.png)
+
+### GitHub Actions & Security
+![GitHub Actions](screenshots/github-actions.png)
