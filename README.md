@@ -6,7 +6,7 @@
 ![Detection Engineering](https://img.shields.io/badge/Detection-Engineering-red)
 ![Policy as Code](https://img.shields.io/badge/Policy--as--Code-OPA%20%2F%20Kyverno-green)
 
-# CloudSec LabOps
+
 
 🚀 Live Demo:
 https://ali-git-hub.github.io/cloudsec-labops/
