@@ -303,4 +303,4 @@ Expected result: a browser-ready HTML dashboard and executive summary.
 ![Attack Path Report](screenshots/attack-path-report.png)
 
 ### GitHub Actions & Security
-![GitHub Actions](screenshots/githubactions.png)
+![GitHub Actions](screenshots/github-actions.jpg)
