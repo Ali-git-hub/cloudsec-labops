@@ -1,0 +1,22 @@
+name: CloudTrail Detection Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  cloudtrail-detection:
+    name: Run CloudTrail Detection Rules
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run detection engine
+        run: |
+          python3 scripts/cloudtrail-detect.py \
+            detections/lab05-cloudtrail-threat-detection/events/sample-cloudtrail.json \
+            detections/lab05-cloudtrail-threat-detection/rules/cloudtrail-detections.yaml

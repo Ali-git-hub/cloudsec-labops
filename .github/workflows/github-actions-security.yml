@@ -1,0 +1,19 @@
+name: GitHub Actions Security Guardrails
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  detect-dangerous-actions:
+    name: Detect Dangerous GitHub Actions Patterns
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run GitHub Actions security detector
+        run: bash scripts/detect-dangerous-github-actions.sh ".github/workflows cicd-security"

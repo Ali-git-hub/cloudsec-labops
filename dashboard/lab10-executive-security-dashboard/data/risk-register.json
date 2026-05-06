@@ -1,0 +1,96 @@
+{
+  "project": "CloudSec LabOps",
+  "generated_at": "2026-05-05T00:00:00Z",
+  "labs": [
+    {
+      "id": "LAB-01",
+      "name": "Public S3 Exposure",
+      "domain": "Cloud Infrastructure",
+      "severity": "high",
+      "status": "remediated",
+      "risk_score": 8,
+      "control": "Block public access, encryption, versioning",
+      "evidence": "reports/lab01-remediation-report.md"
+    },
+    {
+      "id": "LAB-02",
+      "name": "IAM Privilege Escalation Risk",
+      "domain": "Identity and Access",
+      "severity": "critical",
+      "status": "remediated",
+      "risk_score": 10,
+      "control": "Least privilege IAM policy",
+      "evidence": "reports/lab02-iam-remediation-report.md"
+    },
+    {
+      "id": "LAB-03",
+      "name": "Insecure GitHub Actions Pipeline",
+      "domain": "CI/CD Security",
+      "severity": "high",
+      "status": "remediated",
+      "risk_score": 8,
+      "control": "Pinned actions, least permissions, OIDC",
+      "evidence": "reports/lab03-github-actions-remediation-report.md"
+    },
+    {
+      "id": "LAB-04",
+      "name": "Kubernetes Runtime Detection",
+      "domain": "Runtime Security",
+      "severity": "critical",
+      "status": "detected",
+      "risk_score": 9,
+      "control": "Falco detection and hardened pod spec",
+      "evidence": "reports/lab04-kubernetes-runtime-detection-report.md"
+    },
+    {
+      "id": "LAB-05",
+      "name": "CloudTrail Threat Detection",
+      "domain": "Detection Engineering",
+      "severity": "critical",
+      "status": "detected",
+      "risk_score": 10,
+      "control": "Detection rules for IAM and CloudTrail events",
+      "evidence": "reports/lab05-cloudtrail-incident-report.md"
+    },
+    {
+      "id": "LAB-06",
+      "name": "Container Image Vulnerability Pipeline",
+      "domain": "Container Security",
+      "severity": "high",
+      "status": "remediated",
+      "risk_score": 7,
+      "control": "Trivy scan and hardened Dockerfile",
+      "evidence": "reports/lab06-container-image-remediation-report.md"
+    },
+    {
+      "id": "LAB-07",
+      "name": "Policy-as-Code with OPA and Kyverno",
+      "domain": "Kubernetes Governance",
+      "severity": "high",
+      "status": "prevented",
+      "risk_score": 8,
+      "control": "Kyverno and OPA guardrails",
+      "evidence": "reports/lab07-policy-as-code-report.md"
+    },
+    {
+      "id": "LAB-08",
+      "name": "Secrets Detection and Prevention",
+      "domain": "Secrets Security",
+      "severity": "critical",
+      "status": "prevented",
+      "risk_score": 9,
+      "control": "Custom detector and Gitleaks",
+      "evidence": "reports/lab08-secrets-detection-report.md"
+    },
+    {
+      "id": "LAB-09",
+      "name": "Attack Path / Cloud Risk Graph",
+      "domain": "Risk Management",
+      "severity": "critical",
+      "status": "analyzed",
+      "risk_score": 10,
+      "control": "Attack path modeling and remediation mapping",
+      "evidence": "reports/lab09-cloud-risk-graph-report.md"
+    }
+  ]
+}

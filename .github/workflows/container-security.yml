@@ -1,0 +1,42 @@
+name: Container Security Pipeline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  dockerfile-guardrails:
+    name: Dockerfile Guardrails
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Dockerfile guardrail scan
+        run: bash scripts/container-dockerfile-guardrail.sh containers
+
+  trivy-image-scan:
+    name: Build and Scan Secure Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build secure image
+        run: |
+          docker build \
+            -f containers/lab06-image-vulnerability-pipeline/secure/Dockerfile \
+            -t cloudsec-labops-secure:ci \
+            containers/lab06-image-vulnerability-pipeline
+
+      - name: Run Trivy image scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: cloudsec-labops-secure:ci
+          format: table
+          exit-code: "1"
+          severity: HIGH,CRITICAL

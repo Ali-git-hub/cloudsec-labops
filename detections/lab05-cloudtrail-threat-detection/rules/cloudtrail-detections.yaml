@@ -1,0 +1,24 @@
+rules:
+  - id: AWS-IAM-001
+    title: IAM Access Key Created
+    severity: medium
+    description: Detects creation of a new IAM access key.
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+
+  - id: AWS-IAM-002
+    title: AdministratorAccess Policy Attached
+    severity: critical
+    description: Detects attachment of AWS managed AdministratorAccess policy.
+    eventSource: iam.amazonaws.com
+    eventName: AttachUserPolicy
+    contains:
+      field: requestParameters.policyArn
+      value: AdministratorAccess
+
+  - id: AWS-CT-001
+    title: CloudTrail Logging Stopped
+    severity: critical
+    description: Detects attempts to stop CloudTrail logging.
+    eventSource: cloudtrail.amazonaws.com
+    eventName: StopLogging

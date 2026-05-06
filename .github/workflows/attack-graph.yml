@@ -1,0 +1,34 @@
+name: Cloud Attack Graph Analysis
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  attack-graph:
+    name: Build Cloud Risk Graph
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate attack graph report
+        run: |
+          set +e
+          python3 scripts/build-attack-graph.py attack-graph/lab09-cloud-risk-graph/data/cloud-assets.json
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            echo "No critical attack paths detected."
+          else
+            echo "Critical attack paths detected. Review output report."
+          fi
+
+      - name: Upload attack graph artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloud-risk-graph
+          path: attack-graph/lab09-cloud-risk-graph/output/

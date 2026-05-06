@@ -1,0 +1,19 @@
+name: IAM Security Guardrails
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  dangerous-iam-detection:
+    name: Detect Dangerous IAM Patterns
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run IAM dangerous pattern detector
+        run: bash scripts/detect-dangerous-iam.sh terraform

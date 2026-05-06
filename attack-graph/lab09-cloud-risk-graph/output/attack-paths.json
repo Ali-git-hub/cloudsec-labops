@@ -1,0 +1,52 @@
+[
+  {
+    "score": 21,
+    "nodes": [
+      "internet",
+      "s3_public_bucket",
+      "leaked_github_token",
+      "github_actions",
+      "iam_developer_user",
+      "admin_policy",
+      "prod_account"
+    ],
+    "edges": [
+      {
+        "from": "internet",
+        "to": "s3_public_bucket",
+        "relationship": "can_read_public_objects",
+        "risk": "high"
+      },
+      {
+        "from": "s3_public_bucket",
+        "to": "leaked_github_token",
+        "relationship": "contains_secret",
+        "risk": "critical"
+      },
+      {
+        "from": "leaked_github_token",
+        "to": "github_actions",
+        "relationship": "can_trigger_pipeline",
+        "risk": "high"
+      },
+      {
+        "from": "github_actions",
+        "to": "iam_developer_user",
+        "relationship": "uses_cloud_credentials",
+        "risk": "high"
+      },
+      {
+        "from": "iam_developer_user",
+        "to": "admin_policy",
+        "relationship": "can_attach_policy",
+        "risk": "critical"
+      },
+      {
+        "from": "admin_policy",
+        "to": "prod_account",
+        "relationship": "grants_admin_access",
+        "risk": "critical"
+      }
+    ]
+  }
+]

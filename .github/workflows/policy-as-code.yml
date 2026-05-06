@@ -1,0 +1,51 @@
+name: Policy-as-Code Security
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  policy-guardrails:
+    name: Run Policy-as-Code Guardrails
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run lightweight policy guardrail
+        run: bash scripts/policy-as-code-guardrail.sh
+
+  kyverno-cli:
+    name: Kyverno Policy Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Kyverno CLI
+        run: |
+          curl -sL https://github.com/kyverno/kyverno/releases/latest/download/kyverno-cli_v1.13.0_linux_x86_64.tar.gz -o kyverno.tar.gz
+          tar -xzf kyverno.tar.gz
+          sudo mv kyverno /usr/local/bin/kyverno
+
+      - name: Validate policies against passing manifest
+        run: |
+          kyverno apply policy-as-code/lab07-opa-kyverno/kyverno-policies \
+            --resource policy-as-code/lab07-opa-kyverno/test-manifests/passing
+
+      - name: Confirm violating manifest is blocked
+        run: |
+          set +e
+          kyverno apply policy-as-code/lab07-opa-kyverno/kyverno-policies \
+            --resource policy-as-code/lab07-opa-kyverno/test-manifests/violating
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            echo "Expected violating manifest to fail policy validation."
+            exit 1
+          fi
+          echo "Violating manifest correctly failed policy validation."

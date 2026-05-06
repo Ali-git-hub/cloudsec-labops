@@ -1,0 +1,19 @@
+name: Kubernetes Manifest Security
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  k8s-manifest-guardrails:
+    name: Detect Dangerous Kubernetes Manifest Patterns
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Kubernetes manifest security scan
+        run: bash scripts/k8s-manifest-security-scan.sh kubernetes

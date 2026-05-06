@@ -1,0 +1,80 @@
+{
+  "project": "CloudSec LabOps",
+  "generated_at": "2026-05-06T15:25:33.422900+00:00",
+  "total_labs": 9,
+  "average_risk_score": 8.78,
+  "overall_risk_level": "High",
+  "severity_counts": {
+    "high": 4,
+    "critical": 5
+  },
+  "status_counts": {
+    "remediated": 4,
+    "detected": 2,
+    "prevented": 2,
+    "analyzed": 1
+  },
+  "domain_counts": {
+    "Cloud Infrastructure": 1,
+    "Identity and Access": 1,
+    "CI/CD Security": 1,
+    "Runtime Security": 1,
+    "Detection Engineering": 1,
+    "Container Security": 1,
+    "Kubernetes Governance": 1,
+    "Secrets Security": 1,
+    "Risk Management": 1
+  },
+  "top_risks": [
+    {
+      "id": "LAB-02",
+      "name": "IAM Privilege Escalation Risk",
+      "domain": "Identity and Access",
+      "severity": "critical",
+      "status": "remediated",
+      "risk_score": 10,
+      "control": "Least privilege IAM policy",
+      "evidence": "reports/lab02-iam-remediation-report.md"
+    },
+    {
+      "id": "LAB-05",
+      "name": "CloudTrail Threat Detection",
+      "domain": "Detection Engineering",
+      "severity": "critical",
+      "status": "detected",
+      "risk_score": 10,
+      "control": "Detection rules for IAM and CloudTrail events",
+      "evidence": "reports/lab05-cloudtrail-incident-report.md"
+    },
+    {
+      "id": "LAB-09",
+      "name": "Attack Path / Cloud Risk Graph",
+      "domain": "Risk Management",
+      "severity": "critical",
+      "status": "analyzed",
+      "risk_score": 10,
+      "control": "Attack path modeling and remediation mapping",
+      "evidence": "reports/lab09-cloud-risk-graph-report.md"
+    },
+    {
+      "id": "LAB-04",
+      "name": "Kubernetes Runtime Detection",
+      "domain": "Runtime Security",
+      "severity": "critical",
+      "status": "detected",
+      "risk_score": 9,
+      "control": "Falco detection and hardened pod spec",
+      "evidence": "reports/lab04-kubernetes-runtime-detection-report.md"
+    },
+    {
+      "id": "LAB-08",
+      "name": "Secrets Detection and Prevention",
+      "domain": "Secrets Security",
+      "severity": "critical",
+      "status": "prevented",
+      "risk_score": 9,
+      "control": "Custom detector and Gitleaks",
+      "evidence": "reports/lab08-secrets-detection-report.md"
+    }
+  ]
+}

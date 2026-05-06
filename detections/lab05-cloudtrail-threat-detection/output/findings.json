@@ -1,0 +1,48 @@
+[
+  {
+    "rule_id": "AWS-IAM-001",
+    "title": "IAM Access Key Created",
+    "severity": "medium",
+    "description": "Detects creation of a new IAM access key.",
+    "eventTime": "2026-05-05T09:10:00Z",
+    "eventSource": "iam.amazonaws.com",
+    "eventName": "CreateAccessKey",
+    "principal": "arn:aws:iam::123456789012:user/developer",
+    "sourceIPAddress": "203.0.113.10",
+    "userAgent": "aws-cli/2.15",
+    "requestParameters": {
+      "userName": "developer"
+    }
+  },
+  {
+    "rule_id": "AWS-IAM-002",
+    "title": "AdministratorAccess Policy Attached",
+    "severity": "critical",
+    "description": "Detects attachment of AWS managed AdministratorAccess policy.",
+    "eventTime": "2026-05-05T09:12:00Z",
+    "eventSource": "iam.amazonaws.com",
+    "eventName": "AttachUserPolicy",
+    "principal": "arn:aws:iam::123456789012:user/developer",
+    "sourceIPAddress": "203.0.113.10",
+    "userAgent": "aws-cli/2.15",
+    "requestParameters": {
+      "userName": "developer",
+      "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+    }
+  },
+  {
+    "rule_id": "AWS-CT-001",
+    "title": "CloudTrail Logging Stopped",
+    "severity": "critical",
+    "description": "Detects attempts to stop CloudTrail logging.",
+    "eventTime": "2026-05-05T09:13:00Z",
+    "eventSource": "cloudtrail.amazonaws.com",
+    "eventName": "StopLogging",
+    "principal": "arn:aws:iam::123456789012:user/developer",
+    "sourceIPAddress": "203.0.113.10",
+    "userAgent": "aws-cli/2.15",
+    "requestParameters": {
+      "name": "org-trail"
+    }
+  }
+]

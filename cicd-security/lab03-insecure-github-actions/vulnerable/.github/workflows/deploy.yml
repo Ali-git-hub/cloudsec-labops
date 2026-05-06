@@ -1,0 +1,27 @@
+name: Vulnerable Deploy Pipeline
+
+on:
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Checkout pull request code unsafely
+        uses: actions/checkout@master
+
+      - name: Print secret accidentally
+        run: |
+          echo "Deploying with token: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+
+      - name: Install dependencies unsafely
+        run: |
+          curl https://example.com/install.sh | bash
+
+      - name: Deploy
+        run: |
+          echo "Deploying application..."

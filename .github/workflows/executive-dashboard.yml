@@ -1,0 +1,27 @@
+name: Executive Security Dashboard
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-dashboard:
+    name: Generate Executive Dashboard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate dashboard
+        run: |
+          python3 scripts/generate-executive-dashboard.py \
+            dashboard/lab10-executive-security-dashboard/data/risk-register.json
+
+      - name: Upload dashboard artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: executive-security-dashboard
+          path: dashboard/lab10-executive-security-dashboard/output/

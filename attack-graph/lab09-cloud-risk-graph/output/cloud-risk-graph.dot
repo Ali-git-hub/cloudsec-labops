@@ -1,0 +1,24 @@
+digraph CloudRiskGraph {
+  rankdir="LR";
+  node [shape=box, style="rounded"];
+  "internet" [label="Internet\nexternal", style="rounded"];
+  "s3_public_bucket" [label="Public S3 Bucket\naws_s3_bucket", style="rounded,filled", fillcolor="#ffe0b3"];
+  "github_actions" [label="GitHub Actions Pipeline\nci_cd", style="rounded"];
+  "leaked_github_token" [label="Leaked GitHub Token\nsecret", style="rounded,filled", fillcolor="#ffcccc"];
+  "iam_developer_user" [label="Developer IAM User\naws_iam_user", style="rounded,filled", fillcolor="#ffe0b3"];
+  "admin_policy" [label="AdministratorAccess Policy\naws_iam_policy", style="rounded,filled", fillcolor="#ffcccc"];
+  "cloudtrail" [label="CloudTrail Logging\naws_cloudtrail", style="rounded,filled", fillcolor="#ffcccc"];
+  "prod_account" [label="Production AWS Account\naws_account", style="rounded,filled", fillcolor="#ffcccc"];
+  "k8s_cluster" [label="Production Kubernetes Cluster\nkubernetes_cluster", style="rounded,filled", fillcolor="#ffe0b3"];
+  "privileged_pod" [label="Privileged Pod with hostPath\nkubernetes_pod", style="rounded,filled", fillcolor="#ffcccc"];
+  "internet" -> "s3_public_bucket" [label="can_read_public_objects", color="red", penwidth="2"];
+  "s3_public_bucket" -> "leaked_github_token" [label="contains_secret", color="red", penwidth="2"];
+  "leaked_github_token" -> "github_actions" [label="can_trigger_pipeline", color="red", penwidth="2"];
+  "github_actions" -> "iam_developer_user" [label="uses_cloud_credentials", color="red", penwidth="2"];
+  "iam_developer_user" -> "admin_policy" [label="can_attach_policy", color="red", penwidth="2"];
+  "admin_policy" -> "prod_account" [label="grants_admin_access", color="red", penwidth="2"];
+  "prod_account" -> "cloudtrail" [label="can_stop_logging"];
+  "prod_account" -> "k8s_cluster" [label="can_deploy_workloads"];
+  "k8s_cluster" -> "privileged_pod" [label="runs_workload"];
+  "privileged_pod" -> "prod_account" [label="can_access_node_or_metadata"];
+}

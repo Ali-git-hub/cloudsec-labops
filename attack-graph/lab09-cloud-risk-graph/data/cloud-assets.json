@@ -1,0 +1,130 @@
+{
+  "nodes": [
+    {
+      "id": "internet",
+      "type": "external",
+      "label": "Internet"
+    },
+    {
+      "id": "s3_public_bucket",
+      "type": "aws_s3_bucket",
+      "label": "Public S3 Bucket",
+      "risk": "high"
+    },
+    {
+      "id": "github_actions",
+      "type": "ci_cd",
+      "label": "GitHub Actions Pipeline",
+      "risk": "medium"
+    },
+    {
+      "id": "leaked_github_token",
+      "type": "secret",
+      "label": "Leaked GitHub Token",
+      "risk": "critical"
+    },
+    {
+      "id": "iam_developer_user",
+      "type": "aws_iam_user",
+      "label": "Developer IAM User",
+      "risk": "high"
+    },
+    {
+      "id": "admin_policy",
+      "type": "aws_iam_policy",
+      "label": "AdministratorAccess Policy",
+      "risk": "critical"
+    },
+    {
+      "id": "cloudtrail",
+      "type": "aws_cloudtrail",
+      "label": "CloudTrail Logging",
+      "risk": "critical"
+    },
+    {
+      "id": "prod_account",
+      "type": "aws_account",
+      "label": "Production AWS Account",
+      "risk": "critical"
+    },
+    {
+      "id": "k8s_cluster",
+      "type": "kubernetes_cluster",
+      "label": "Production Kubernetes Cluster",
+      "risk": "high"
+    },
+    {
+      "id": "privileged_pod",
+      "type": "kubernetes_pod",
+      "label": "Privileged Pod with hostPath",
+      "risk": "critical"
+    }
+  ],
+  "edges": [
+    {
+      "from": "internet",
+      "to": "s3_public_bucket",
+      "relationship": "can_read_public_objects",
+      "risk": "high"
+    },
+    {
+      "from": "s3_public_bucket",
+      "to": "leaked_github_token",
+      "relationship": "contains_secret",
+      "risk": "critical"
+    },
+    {
+      "from": "leaked_github_token",
+      "to": "github_actions",
+      "relationship": "can_trigger_pipeline",
+      "risk": "high"
+    },
+    {
+      "from": "github_actions",
+      "to": "iam_developer_user",
+      "relationship": "uses_cloud_credentials",
+      "risk": "high"
+    },
+    {
+      "from": "iam_developer_user",
+      "to": "admin_policy",
+      "relationship": "can_attach_policy",
+      "risk": "critical"
+    },
+    {
+      "from": "admin_policy",
+      "to": "prod_account",
+      "relationship": "grants_admin_access",
+      "risk": "critical"
+    },
+    {
+      "from": "prod_account",
+      "to": "cloudtrail",
+      "relationship": "can_stop_logging",
+      "risk": "critical"
+    },
+    {
+      "from": "prod_account",
+      "to": "k8s_cluster",
+      "relationship": "can_deploy_workloads",
+      "risk": "high"
+    },
+    {
+      "from": "k8s_cluster",
+      "to": "privileged_pod",
+      "relationship": "runs_workload",
+      "risk": "critical"
+    },
+    {
+      "from": "privileged_pod",
+      "to": "prod_account",
+      "relationship": "can_access_node_or_metadata",
+      "risk": "critical"
+    }
+  ],
+  "crown_jewels": [
+    "prod_account",
+    "cloudtrail",
+    "k8s_cluster"
+  ]
+}

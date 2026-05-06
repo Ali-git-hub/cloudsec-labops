@@ -1,0 +1,75 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "developer",
+        "arn": "arn:aws:iam::123456789012:user/developer"
+      },
+      "eventTime": "2026-05-05T09:10:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userAgent": "aws-cli/2.15",
+      "requestParameters": {
+        "userName": "developer"
+      },
+      "responseElements": {
+        "accessKey": {
+          "accessKeyId": "AKIAEXAMPLE123456789"
+        }
+      }
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "developer",
+        "arn": "arn:aws:iam::123456789012:user/developer"
+      },
+      "eventTime": "2026-05-05T09:12:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "AttachUserPolicy",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userAgent": "aws-cli/2.15",
+      "requestParameters": {
+        "userName": "developer",
+        "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      }
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "developer",
+        "arn": "arn:aws:iam::123456789012:user/developer"
+      },
+      "eventTime": "2026-05-05T09:13:00Z",
+      "eventSource": "cloudtrail.amazonaws.com",
+      "eventName": "StopLogging",
+      "awsRegion": "eu-central-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userAgent": "aws-cli/2.15",
+      "requestParameters": {
+        "name": "org-trail"
+      }
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "billing-reader",
+        "arn": "arn:aws:iam::123456789012:user/billing-reader"
+      },
+      "eventTime": "2026-05-05T10:30:00Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "ListBuckets",
+      "awsRegion": "eu-central-1",
+      "sourceIPAddress": "198.51.100.20",
+      "userAgent": "console.amazonaws.com"
+    }
+  ]
+}

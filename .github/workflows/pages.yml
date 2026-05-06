@@ -1,0 +1,60 @@
+name: Publish Portfolio Site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build portfolio site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate reports
+        run: |
+          set +e
+          python3 scripts/cloudtrail-detect.py detections/lab05-cloudtrail-threat-detection/events/sample-cloudtrail.json detections/lab05-cloudtrail-threat-detection/rules/cloudtrail-detections.yaml
+          python3 scripts/build-attack-graph.py attack-graph/lab09-cloud-risk-graph/data/cloud-assets.json
+          set -e
+          python3 scripts/generate-executive-dashboard.py dashboard/lab10-executive-security-dashboard/data/risk-register.json
+          python3 scripts/build-portfolio-site.py
+
+      - name: Copy dashboard into docs
+        run: |
+          mkdir -p docs/dashboard
+          cp dashboard/lab10-executive-security-dashboard/output/executive-dashboard.html docs/dashboard/index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
